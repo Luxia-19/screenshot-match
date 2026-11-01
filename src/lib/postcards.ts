@@ -4,7 +4,7 @@ export type Postcard = {
   body: string;
   createdAt: number;
   images: string[];
-  audio?: { name: string; src: string };
+  audio?: { name: string; src: string } | undefined;
   archived?: boolean;
   private?: boolean;
 };
