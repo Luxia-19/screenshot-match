@@ -50,7 +50,7 @@ function App() {
   useEffect(() => { if (ready) saveCards(cards); }, [cards, ready]);
   useEffect(() => { if (ready) saveProfile(profile); }, [profile, ready]);
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
+    document.documentElement.dataset["theme"] = theme;
     document.documentElement.classList.toggle("dark", theme === "dark");
     if (ready) saveTheme(theme);
   }, [theme, ready]);

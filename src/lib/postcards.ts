@@ -73,7 +73,7 @@ export const CARD_PRESETS: { name: string; theme: CardTheme }[] = [
   },
 ];
 
-export const defaultCardTheme = (): CardTheme => ({ ...CARD_PRESETS[0].theme });
+export const defaultCardTheme = (): CardTheme => ({ ...CARD_PRESETS[0]!.theme });
 
 const KEY = "postcards.v1";
 const PKEY = "postcards.profile";
@@ -87,7 +87,7 @@ export const seed: Postcard[] = [
     author: "Traveler",
     createdAt: Date.now() - 86400000 * 2,
     images: [],
-    theme: { ...CARD_PRESETS[0].theme },
+    theme: { ...CARD_PRESETS[0]!.theme },
   },
   {
     id: "s2",
@@ -97,7 +97,7 @@ export const seed: Postcard[] = [
     createdAt: Date.now() - 86400000 * 9,
     images: [],
     private: true,
-    theme: { ...CARD_PRESETS[1].theme },
+    theme: { ...CARD_PRESETS[1]!.theme },
   },
 ];
 
