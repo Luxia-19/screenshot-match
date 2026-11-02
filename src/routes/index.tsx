@@ -231,6 +231,18 @@ function AudioBar({ audio, audioRef, autoplay, onToggleAutoplay, dark }: {
 }) {
   const [playing, setPlaying] = useState(false);
   const [pct, setPct] = useState(0);
+  useEffect(() => {
+    const a = audioRef.current;
+    if (!a) return;
+    const onTime = () => setPct(a.duration ? (a.currentTime / a.duration) * 100 : 0);
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+    a.addEventListener("timeupdate", onTime);
+    a.addEventListener("play", onPlay);
+    a.addEventListener("pause", onPause);
+    setPlaying(!a.paused);
+    return () => { a.removeEventListener("timeupdate", onTime); a.removeEventListener("play", onPlay); a.removeEventListener("pause", onPause); };
+  }, [audioRef]);
   const seek = (v: number) => {
     const a = audioRef.current;
     if (a?.duration) a.currentTime = (v / 100) * a.duration;
@@ -269,7 +281,7 @@ function EnvelopeView({ c, onClose, onChange, onEdit, onDelete }: {
   const unseal = () => {
     if (stage !== "sealed") return;
     setStage("flap");
-    if (c.audio?.src) audioRef.current?.play().catch(() => {});
+    if (c.audio?.src && c.autoplay !== false) audioRef.current?.play().catch(() => {});
     setTimeout(() => setStage("slide"), 620);
     setTimeout(() => setStage("open"), 1450);
   };
