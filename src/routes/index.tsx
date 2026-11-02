@@ -297,11 +297,7 @@ function EnvelopeView({ c, onClose, onChange, onEdit, onDelete }: {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/50 p-4 backdrop-blur-sm" onClick={onClose}>
-      {c.audio && (
-        <audio ref={audioRef} src={c.audio.src} loop
-          onTimeUpdate={(e) => { /* pct handled in AudioBar via ref */ }}
-        />
-      )}
+      {c.audio && <audio ref={audioRef} src={c.audio.src} loop />}
 
       {stage !== "open" ? (
         /* ---- Sealed / opening envelope ---- */
@@ -446,7 +442,7 @@ function Editor({ initial, author, onClose, onSave }: {
   };
   const addAudio = async (fs: FileList | null) => {
     const f = fs?.[0]; if (!f) return;
-    setC((x) => ({ ...x, audio: { name: f.name, src: "" } }));
+    setC((x) => ({ ...x, audio: { name: f.name, src: "" }, autoplay: true }));
     const src = await readFile(f);
     setC((x) => ({ ...x, audio: { name: f.name, src } }));
   };
